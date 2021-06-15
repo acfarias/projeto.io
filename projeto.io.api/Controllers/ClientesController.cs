@@ -21,11 +21,12 @@ namespace projeto.io.api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(bool), 201)]
         public async Task<IActionResult> CadastrarCliente([FromBody] ClienteViewModel cliente)
         {
             var command = _mapper.Map<CadastrarClienteCommand>(cliente);
 
-            return Ok(await _mediatorHandler.EnviarComando<CadastrarClienteCommand, bool>(command));
+            return Created(string.Empty, await _mediatorHandler.EnviarComando<CadastrarClienteCommand, bool>(command));
         }
     }
 }

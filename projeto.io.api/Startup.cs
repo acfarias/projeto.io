@@ -1,9 +1,14 @@
 using acf.lib.bootstrap.Swagger;
+using AcfLib.Filters;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using projeto.io.api.Mapeamentos;
+using projeto.io.infra.crosscutting.ioc;
 
 namespace projeto.io.api
 {
@@ -18,7 +23,16 @@ namespace projeto.io.api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(cnf =>
+            {
+                cnf.Filters.Add(new ExceptionFilters());
+            })
+            .AddFluentValidation();
+
+            services.AddConfiguracaoDeSwagger(Configuration);
+            services.AddAutoMapper(typeof(AutoMapperConfiguration));
+            services.RegistrarDependencias();
+            services.AddMediatR(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

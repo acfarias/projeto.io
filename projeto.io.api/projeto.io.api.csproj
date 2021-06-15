@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\projeto.io.domain\projeto.io.domain.csproj" />
+    <ProjectReference Include="..\projeto.io.infra.crosscutting.ioc\projeto.io.infra.crosscutting.ioc.csproj" />
   </ItemGroup>
 
 
