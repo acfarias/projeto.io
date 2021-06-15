@@ -2,13 +2,12 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using projeto.io.domain.Clientes.Commands;
+using projeto.io.domain.Clientes.Repositorio;
 using projeto.io.domain.core.Notifications;
 using projeto.io.domain.Handlers;
 using projeto.io.domain.Interfaces;
 using projeto.io.infra.data.Contexto;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using projeto.io.infra.data.Repositorios.Clientes;
 
 namespace projeto.io.infra.crosscutting.ioc
 {
@@ -26,6 +25,8 @@ namespace projeto.io.infra.crosscutting.ioc
             services.AddScoped<IRequestHandler<ExcluirClienteCommand, bool>, ClienteCommandHandler>();
 
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+
+            services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
         }
     }
 }

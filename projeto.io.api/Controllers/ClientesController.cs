@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace projeto.io.api.Controllers
 {
-    [Route("clientes")]
-    [ApiController]
+    [Route("projeto/v1/clientes")]
     public class ClientesController : Controller
     {
         private readonly IMediatorHandler _mediatorHandler;

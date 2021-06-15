@@ -15,7 +15,8 @@ namespace projeto.io.domain.ValueObjects
 
         public override bool IsValid()
         {
-            return new CPFValidacoes().Validate(this).IsValid;
+            ValidationResult = new CPFValidacoes().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 
