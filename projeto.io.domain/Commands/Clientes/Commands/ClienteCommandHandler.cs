@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
-using projeto.io.domain.Clientes.Repositorio;
+using projeto.io.domain.Commands.Clientes.Entities;
+using projeto.io.domain.Commands.Clientes.Repositorio;
 using projeto.io.domain.core.Notifications;
 using projeto.io.domain.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace projeto.io.domain.Clientes.Commands
+namespace projeto.io.domain.Commands.Clientes.Commands
 {
     public class ClienteCommandHandler : CommandHandler,
                                        IRequestHandler<CadastrarClienteCommand, bool>,
@@ -30,18 +31,18 @@ namespace projeto.io.domain.Clientes.Commands
         {
             if (!request.IsValid())
             {
-                NotificarValidacoesErros(request.ValidationResult);
+                NotificarValidacoesErros(request);
                 return false;
             }
 
-            var clienteExistente = await _clienteRepositorio.ObterPorCpf(request.Cpf);
+            var clienteExistente = await _clienteRepositorio.ObterPorCpf(request.Cpf.CPF);
             if (clienteExistente != null)
             {
                 await _mediatorHandler.PublicarEvento(new DomainNotification("", "Já existe cliente cadastrado com o Cpf informado."));
                 return false;
             }
 
-            var cliente = _mapper.Map<Cliente>(request);
+            var cliente = _mapper.Map<CadastrarClienteCommand, Cliente>(request);
             await _clienteRepositorio.Cadastrar(cliente);
 
             return true;
@@ -51,7 +52,7 @@ namespace projeto.io.domain.Clientes.Commands
         {
             if (!request.IsValid())
             {
-                NotificarValidacoesErros(request.ValidationResult);
+                NotificarValidacoesErros(request);
                 return false;
             }
 
@@ -72,7 +73,7 @@ namespace projeto.io.domain.Clientes.Commands
         {
             if (!request.IsValid())
             {
-                NotificarValidacoesErros(request.ValidationResult);
+                NotificarValidacoesErros(request);
                 return false;
             }
 

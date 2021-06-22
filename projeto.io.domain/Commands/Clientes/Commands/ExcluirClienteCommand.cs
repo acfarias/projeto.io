@@ -2,7 +2,7 @@
 using projeto.io.domain.core.Commands;
 using System;
 
-namespace projeto.io.domain.Clientes.Commands
+namespace projeto.io.domain.Commands.Clientes.Commands
 {
     public class ExcluirClienteCommand : Command<bool>
     {

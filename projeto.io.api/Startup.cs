@@ -23,10 +23,7 @@ namespace projeto.io.api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(cnf =>
-            {
-                cnf.Filters.Add(new ExceptionFilters());
-            })
+            services.AddControllers()
             .AddFluentValidation();
 
             services.AddConfiguracaoDeSwagger(Configuration);

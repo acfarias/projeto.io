@@ -4,14 +4,15 @@ using projeto.io.domain.core.Commands;
 
 namespace projeto.io.domain.ValueObjects
 {
-    public class CPF : Command<bool>
+    public class Documento : Command<bool>
     {
-        public CPF(string cpf)
+        public Documento(string cpf)
         {
-            Cpf = cpf;
+            CPF = cpf;
+            IsValid();
         }
 
-        public string Cpf { get; private set; }
+        public string CPF { get; private set; }
 
         public override bool IsValid()
         {
@@ -20,11 +21,11 @@ namespace projeto.io.domain.ValueObjects
         }
     }
 
-    public class CPFValidacoes : AbstractValidator<CPF>
+    public class CPFValidacoes : AbstractValidator<Documento>
     {
         public CPFValidacoes()
         {
-            RuleFor(c => c.Cpf)
+            RuleFor(c => c.CPF)
                 .Must(ValidacaoDeCpfCnpj.ValidarCpfCnpj)
                 .WithMessage("Cpf inválido");
         }

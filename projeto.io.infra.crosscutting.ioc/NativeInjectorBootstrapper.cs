@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using projeto.io.domain.Clientes.Commands;
-using projeto.io.domain.Clientes.Repositorio;
+using projeto.io.domain.Commands.Clientes.Commands;
+using projeto.io.domain.Commands.Clientes.Repositorio;
 using projeto.io.domain.core.Notifications;
 using projeto.io.domain.Handlers;
 using projeto.io.domain.Interfaces;
+using projeto.io.domain.Queries.Clientes;
+using projeto.io.domain.Queries.Clientes.Interfaces;
 using projeto.io.infra.data.Contexto;
 using projeto.io.infra.data.Repositorios.Clientes;
 
@@ -27,6 +29,7 @@ namespace projeto.io.infra.crosscutting.ioc
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
             services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
+            services.AddScoped<IConsultaDeClientePorCidade, ConsultaDeClientePorCidade>();
         }
     }
 }

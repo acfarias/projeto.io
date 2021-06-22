@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using projeto.io.domain.Clientes;
+using projeto.io.domain.Commands.Clientes.Entities;
 
 namespace projeto.io.infra.data.Contexto
 {
@@ -16,7 +16,12 @@ namespace projeto.io.infra.data.Contexto
             builder.UseInMemoryDatabase("ProjetoDB");
         }
 
+        protected override void OnModelCreating(ModelBuilder model)
+        {
+            model.ApplyConfigurationsFromAssembly(typeof(ContextoProjeto).Assembly);
+        }
 
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<EnderecoCliente> EnderecoClientes { get; set; }
     }
 }

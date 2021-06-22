@@ -2,11 +2,13 @@
 using projeto.io.domain.ValueObjects;
 using System;
 
-namespace projeto.io.domain.Clientes
+namespace projeto.io.domain.Commands.Clientes.Entities
 {
-    public class Cliente : Entity<Cliente>
+    public partial class Cliente : Entity<Cliente>
     {
-        public Cliente(Guid id, string nome, CPF cpf, string nomeMae, DateTime dataNascimento, bool ativo)
+        public Cliente() { }
+
+        public Cliente(Guid id, string nome, string cpf, string nomeMae, DateTime dataNascimento, bool ativo, EnderecoCliente endereco)
         {
             Id = id;
             Nome = nome;
@@ -14,13 +16,14 @@ namespace projeto.io.domain.Clientes
             NomeMae = nomeMae;
             DataNascimento = dataNascimento;
             Ativo = ativo;
+            Endereco = endereco;
         }
-        public Cliente() { }
 
         public string Nome { get; private set; }
-        public CPF Cpf { get; private set; }
+        public string Cpf { get; private set; }
         public string NomeMae { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public bool Ativo { get; private set; }
+        public EnderecoCliente Endereco { get; private set; }
     }
 }

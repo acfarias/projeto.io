@@ -3,11 +3,11 @@ using projeto.io.domain.core.Commands;
 using projeto.io.domain.ValueObjects;
 using System;
 
-namespace projeto.io.domain.Clientes.Commands
+namespace projeto.io.domain.Commands.Clientes.Commands
 {
     public class AtualizarClienteCommand : Command<bool>
     {
-        public AtualizarClienteCommand(Guid id, string nome, CPF cpf, string nomeMae, DateTime dataNascimento, bool ativo)
+        public AtualizarClienteCommand(Guid id, string nome, Documento cpf, string nomeMae, DateTime dataNascimento, bool ativo)
         {
             Id = id;
             Nome = nome;
@@ -19,7 +19,7 @@ namespace projeto.io.domain.Clientes.Commands
 
         public Guid Id { get; private set; }
         public string Nome { get; private set; }
-        public CPF Cpf { get; private set; }
+        public Documento Cpf { get; private set; }
         public string NomeMae { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public bool Ativo { get; private set; }

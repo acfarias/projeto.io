@@ -1,4 +1,4 @@
-﻿using FluentValidation.Results;
+﻿using projeto.io.domain.core.Commands;
 using projeto.io.domain.core.Notifications;
 
 namespace projeto.io.domain.Interfaces
@@ -12,9 +12,9 @@ namespace projeto.io.domain.Interfaces
             _mediatorHandler = mediatorHandler;
         }
 
-        protected void NotificarValidacoesErros(ValidationResult validationResult)
+        protected void NotificarValidacoesErros<TResult>(Command<TResult> command)
         {
-            validationResult.Errors.ForEach(e => _mediatorHandler.PublicarEvento(new DomainNotification(e.PropertyName, e.ErrorMessage)));
+            command.ValidationResult.Errors.ForEach(e => _mediatorHandler.PublicarEvento(new DomainNotification(e.PropertyName, e.ErrorMessage)));
         }
     }
 }
