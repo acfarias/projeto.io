@@ -1,5 +1,4 @@
 ﻿using projeto.io.domain.core.Modelos;
-using projeto.io.domain.ValueObjects;
 using System;
 
 namespace projeto.io.domain.Commands.Clientes.Entities
@@ -8,7 +7,7 @@ namespace projeto.io.domain.Commands.Clientes.Entities
     {
         public Cliente() { }
 
-        public Cliente(Guid id, string nome, string cpf, string nomeMae, DateTime dataNascimento, bool ativo, EnderecoCliente endereco)
+        public Cliente(Guid id, string nome, string cpf, string nomeMae, DateTime dataNascimento, bool ativo, Guid idEndereco)
         {
             Id = id;
             Nome = nome;
@@ -16,7 +15,7 @@ namespace projeto.io.domain.Commands.Clientes.Entities
             NomeMae = nomeMae;
             DataNascimento = dataNascimento;
             Ativo = ativo;
-            Endereco = endereco;
+            IdEndereco = idEndereco;
         }
 
         public string Nome { get; private set; }
@@ -24,6 +23,8 @@ namespace projeto.io.domain.Commands.Clientes.Entities
         public string NomeMae { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public bool Ativo { get; private set; }
+        public Guid IdEndereco { get; private set; }
+
         public EnderecoCliente Endereco { get; private set; }
     }
 }

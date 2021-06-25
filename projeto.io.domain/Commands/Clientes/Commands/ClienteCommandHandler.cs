@@ -4,6 +4,7 @@ using projeto.io.domain.Commands.Clientes.Entities;
 using projeto.io.domain.Commands.Clientes.Repositorio;
 using projeto.io.domain.core.Notifications;
 using projeto.io.domain.Interfaces;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,14 +18,17 @@ namespace projeto.io.domain.Commands.Clientes.Commands
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
         private readonly IClienteRepositorio _clienteRepositorio;
+        private readonly IEnderecoDoClienteRepositorio _enderecoDoClienteRepositorio;
 
         public ClienteCommandHandler(IMediatorHandler mediatorHandler,
                                      IMapper mapper,
-                                     IClienteRepositorio clienteRepositorio) : base(mediatorHandler)
+                                     IClienteRepositorio clienteRepositorio,
+                                     IEnderecoDoClienteRepositorio enderecoDoClienteRepositorio) : base(mediatorHandler)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _clienteRepositorio = clienteRepositorio;
+            _enderecoDoClienteRepositorio = enderecoDoClienteRepositorio;
         }
 
         public async Task<bool> Handle(CadastrarClienteCommand request, CancellationToken cancellationToken)
@@ -42,7 +46,15 @@ namespace projeto.io.domain.Commands.Clientes.Commands
                 return false;
             }
 
-            var cliente = _mapper.Map<CadastrarClienteCommand, Cliente>(request);
+            var enderecoMapper = _mapper.Map<EnderecoCliente>(request.Endereco);
+            var cadastroEndereco = await _enderecoDoClienteRepositorio.Cadastrar(enderecoMapper);
+            if (cadastroEndereco != 1)
+            {
+                await _mediatorHandler.PublicarEvento(new DomainNotification("", "Falha ao cadastrar Endereço do cliente."));
+                return false;
+            }
+
+            var cliente = _mapper.Map<Tuple<Guid, CadastrarClienteCommand>, Cliente>(Tuple.Create(enderecoMapper.Id, request));
             await _clienteRepositorio.Cadastrar(cliente);
 
             return true;

@@ -10,6 +10,10 @@ namespace projeto.io.infra.data.Configuracoes
         {
             e.ToTable("EnderecosClientes");
             e.HasKey(e => e.Id);
+
+            e.HasMany(c => c.Clientes)
+                .WithOne(e => e.Endereco)
+                .HasForeignKey(c => c.IdEndereco);
         }
     }
 }

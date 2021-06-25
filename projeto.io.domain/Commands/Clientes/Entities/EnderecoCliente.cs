@@ -1,6 +1,7 @@
 ﻿using projeto.io.domain.core.Modelos;
 using projeto.io.domain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace projeto.io.domain.Commands.Clientes.Entities
 {
@@ -25,5 +26,7 @@ namespace projeto.io.domain.Commands.Clientes.Entities
         public string Bairro { get; private set; }
         public string Cidade { get; private set; }
         public string Pais { get; private set; }
+
+        public ICollection<Cliente> Clientes { get; set; }
     }
 }

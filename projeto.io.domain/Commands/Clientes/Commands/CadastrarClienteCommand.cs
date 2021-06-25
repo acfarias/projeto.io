@@ -22,6 +22,7 @@ namespace projeto.io.domain.Commands.Clientes.Commands
         public string NomeMae { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public bool Ativo { get; private set; }
+
         public Endereco Endereco { get; private set; }
 
         public override bool IsValid()

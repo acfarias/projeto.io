@@ -6,7 +6,7 @@ namespace projeto.io.domain.Interfaces
 {
     public interface IRepositorio<TEntity> : IDisposable where TEntity : Entity<TEntity>
     {
-        Task Cadastrar(TEntity entity);
+        Task<int> Cadastrar(TEntity entity);
         Task<int> Atualizar(TEntity entity);
         Task<TEntity> ObterPorId(Guid id);
         Task<int> Excluir(TEntity entity);

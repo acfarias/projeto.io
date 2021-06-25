@@ -14,10 +14,10 @@ namespace projeto.io.infra.data
             _contextoProjeto = contextoProjeto;
         }
 
-        public async Task Cadastrar(TEntity entity)
+        public async Task<int> Cadastrar(TEntity entity)
         {
             await _contextoProjeto.AddAsync(entity);
-            await _contextoProjeto.SaveChangesAsync();
+            return await _contextoProjeto.SaveChangesAsync();
         }
 
         public async Task<int> Atualizar(TEntity entity)
